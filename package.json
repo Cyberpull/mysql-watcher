@@ -1,0 +1,25 @@
+{
+  "name": "mysql-watcher",
+  "version": "1.0.0",
+  "description": "mysql-watcher is a tool for subscribing to mysql events such as UPDATE, INSERT, DELETE... for real-time updates",
+  "main": "libs/watcher.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christianezeani/mysql-watcher.git"
+  },
+  "keywords": [
+    "mysql",
+    "mysql-events",
+    "binlog",
+    "binary-log"
+  ],
+  "author": "Christian Ezeani <christian.ezeani@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/christianezeani/mysql-watcher/issues"
+  },
+  "homepage": "https://github.com/christianezeani/mysql-watcher#readme"
+}
