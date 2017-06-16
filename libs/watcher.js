@@ -9,10 +9,15 @@
 
 const net = require('net');
 
+function caller(callback) {
+  let args = Array.prototype.slice.call(this);
+  if(typeof(callback) == 'function') { return callback.apply(this, args); }
+  return null;
+}
+
 let xDsn = new Map();
 let xSocket = new Map();
 let xEvents = new Map();
-
 
 /**
  * @class MySQLWatcher
@@ -71,8 +76,22 @@ class MySQLWatcher {
    * @memberOf MySQLWatcher
    */
   get connect() {
+    let dsn = this.dsn;
+    let client = xSocket.get(this);
     return (callback) => {
-      // 
+      // Establish socket connection
+      client.connect(dsn.port, dsn.host, () => {
+        caller.call(this, callback);
+      });
+      // Receive Data from the server
+      client.on('data', (data) => {
+        let string = data.toString('utf8');
+        console.info(string);
+      });
+      // Close event handler
+      client.on('close', () => {
+        console.info('Connection Closed!');
+      });
     };
   }
 
