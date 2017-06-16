@@ -7,8 +7,10 @@
  * @copyright 2017 Christian Ezeani
  */
 
+const net = require('net');
 
 let xDsn = new Map();
+let xSocket = new Map();
 let xEvents = new Map();
 
 
@@ -26,11 +28,20 @@ class MySQLWatcher {
     if (typeof (dsn) != 'object') throw 'Invalid MySQL connection info supplied!';
 
     let info = Object.assign({
-      // 
+      host: '127.0.0.1',
+      port: 3306,
+      user: '',
+      password: '',
+      socketPath: '',
+      database: '',
+      ssl: null
     }, dsn);
 
     xDsn.set(this, info);
     xEvents.set(this, []);
+
+    let client = new net.Socket();
+    xSocket.set(this, client);
   }
 
   /**
@@ -77,6 +88,15 @@ class MySQLWatcher {
       // 
     }
   }
+
+  /**
+   * Alias for disconnect
+   * 
+   * @readonly
+   * 
+   * @memberOf MySQLWatcher
+   */
+  get end() { return this.disconnect; }
 }
 
 module.exports = MySQLWatcher;
